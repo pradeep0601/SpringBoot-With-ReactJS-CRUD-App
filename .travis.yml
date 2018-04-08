@@ -3,7 +3,10 @@ jdk:
  - oraclejdk8
 env:
  - NODE_VERSION=6
+# git strips the wrapper jar file so we have to force its download during the build
 install:
+ - mvn -N io.takari:maven:wrapper
+ - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
  - nvm install $NODE_VERSION
  - nvm use $NODE_VERSION
  - sudo apt-get install -y curl
