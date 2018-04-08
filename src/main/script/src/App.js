@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import EmployeeList from './components/EmployeeList';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			employees: [],
+			isLoading: false
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			isLoading: true
+		});
+		fetch('http://localhost:8080/api/employees/')
+		.then(result => result.json())
+	    .then(data => this.setState(
+	    		{
+					employees: data._embedded.employees,
+					isLoading: false
+				}
+	    		));
+		}
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+	  const {employees, isLoading} = this.state;
+	  if (isLoading) {
+      return <p>Loading...</p>;
+    }
+	  return (
+				<EmployeeList employees={employees}/>
+			);
   }
 }
 
