@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.pradeep.SpringBootReactApp.model.Employee;
 import com.pradeep.SpringBootReactApp.repository.EmployeeRepository;
-
+//Pradeep
 @Component
 public class DataBaseLoader implements CommandLineRunner {
 
